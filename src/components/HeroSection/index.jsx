@@ -80,7 +80,6 @@ const HeroSection = () => {
           Start creating now
         </Button>
       </Grid>
-      {/* TODO: Make the img element overflow */}
       <Grid
         item
         xs={10}
@@ -92,6 +91,7 @@ const HeroSection = () => {
           paddingBottom: 0,
           paddingLeft: 0,
           paddingRight: 0,
+          mb: -5,
         }}
         display="flex"
         justifyContent="center"
