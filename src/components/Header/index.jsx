@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import logo from "../../assets/logo_mindthegraph.svg";
+import { cloneElement, useState } from "react";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -11,18 +12,55 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+
+import logo from "../../assets/logo_mindthegraph.svg";
 
 const drawerWidth = 240;
 const navItems = ["Templates", "Prices", "Blog", "Jobs"];
 
-const Header = (props) => {
-  const { window } = props;
+const Header = () => {
+  // const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
+  function ElevationScroll(props) {
+    const { children } = props;
+    const trigger = useScrollTrigger({
+      disableHysteresis: true,
+      threshold: 0,
+    });
+
+    return cloneElement(children, {
+      elevation: trigger ? 4 : 0,
+      sx: {
+        backgroundColor: "transparent",
+        backgroundImage: trigger
+          ? "linear-gradient(to right, #FF9226, #DC1866)"
+          : "none",
+        transition: "all 0.3s ease-in-out",
+        "& .MuiButton-root": {
+          textTransform: "none",
+          minWidth: "auto",
+          "&:hover": {
+            transform: "scale(1.1)",
+          },
+          transition: "all 0.3s ease-in-out",
+          fontSize: {
+            xs: "0.8rem",
+            md: "0.9rem",
+            xl: "1rem",
+          },
+        },
+        "& .button-default": {
+          backgroundColor: "transparent",
+        },
+      },
+    });
+  }
 
   const drawer = (
     <Box
@@ -132,109 +170,96 @@ const Header = (props) => {
     </Box>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar
-        component="nav"
-        elevation={0}
-        sx={{
-          backgroundColor: "transparent",
-          "& .MuiButton-root": {
-            textTransform: "none",
-            minWidth: "auto",
-            "&:hover": {
-              transform: "scale(1.1)",
-            },
-            transition: "all 0.3s ease-in-out",
-            fontSize: {
-              xs: "0.8rem",
-              md: "0.9rem",
-              xl: "1rem",
-            },
-          },
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { sm: "block", xs: "flex" },
-              ...(mobileOpen && { display: "none" }),
-              justifyContent: { xs: "flex-end" },
-              mt: 2,
-            }}
-          >
-            <img
-              src={logo}
-              alt="Mind the Graph"
-              onClick={() => {
-                window.location.href = "https://mindthegraph.com";
+      <ElevationScroll>
+        <AppBar component="nav" elevation={0}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { sm: "block", xs: "flex" },
+                ...(mobileOpen && { display: "none" }),
+                justifyContent: { xs: "flex-end" },
+                mt: 2,
+                mb: 2,
               }}
-              style={{ cursor: "pointer" }}
-            />
-          </Box>
-          <Box
-            sx={{ display: { xs: "none", sm: "block" }, pt: { sm: 1, md: 2 } }}
-          >
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff", p: 0, px: 0.9 }}>
-                {item}
+            >
+              <img
+                src={logo}
+                alt="Mind the Graph"
+                onClick={() => {
+                  window.location.href = "https://mindthegraph.com";
+                }}
+                style={{ cursor: "pointer" }}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: { xs: "none", sm: "block" },
+                pt: { sm: 1 },
+              }}
+            >
+              {navItems.map((item) => (
+                <Button
+                  key={item}
+                  sx={{ color: "#fff", p: 0, px: 0.9 }}
+                  className="button-default"
+                >
+                  {item}
+                </Button>
+              ))}
+              <Button
+                sx={{
+                  p: 0,
+                  color: "#fff",
+                  border: "1px solid #fff",
+                  borderRadius: "50px",
+                  px: 2,
+                  py: 0.3,
+                  ml: 1,
+                  "&:hover": {
+                    backgroundColor: "#fff",
+                    color: "#212121",
+                  },
+                }}
+              >
+                Login
               </Button>
-            ))}
-            <Button
-              sx={{
-                p: 0,
-                color: "#fff",
-                border: "1px solid #fff",
-                borderRadius: "50px",
-                px: 2,
-                py: 0.3,
-                ml: 1,
-                "&:hover": {
-                  backgroundColor: "#fff",
-                  color: "#212121",
-                },
-              }}
-            >
-              Login
-            </Button>
-            <Button
-              sx={{
-                p: 0,
-                color: "#fff",
-                backgroundColor: "#7833FF",
-                borderRadius: "50px",
-                px: 2,
-                py: 0.3,
-                ml: { sm: 1, md: 2 },
-                border: "1px solid #7833FF",
-                "&:hover": {
-                  backgroundColor: "#FFF",
-                  color: "#7833FF",
-                  border: "1px solid #FFF",
-                },
-              }}
-            >
-              Sign up free
-            </Button>
-          </Box>
-        </Toolbar>
-      </AppBar>
+              <Button
+                sx={{
+                  p: 0,
+                  color: "#fff",
+                  backgroundColor: "#7833FF",
+                  borderRadius: "50px",
+                  px: 2,
+                  py: 0.3,
+                  ml: { sm: 1, md: 2 },
+                  border: "1px solid #7833FF",
+                  "&:hover": {
+                    backgroundColor: "#FFF",
+                    color: "#7833FF",
+                    border: "1px solid #FFF",
+                  },
+                }}
+              >
+                Sign up free
+              </Button>
+            </Box>
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
       <nav>
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
