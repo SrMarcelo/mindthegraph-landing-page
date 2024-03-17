@@ -1,50 +1,259 @@
+/* eslint-disable react/prop-types */
 import logo from "../../assets/logo_mindthegraph.svg";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Button from "@mui/material/Button";
+import { useState } from "react";
 
-const Header = () => {
-  return (
-    <header className="flex 2xl:text-xl xl:text-lg lg:text-base md:text-sm sm:text-xs text-xs">
-      <div
-        className="ml-10 mt-8 w-2/12 cursor-pointer"
-        onClick={() => {
-          window.location.href = "https://mindthegraph.com";
+const drawerWidth = 240;
+const navItems = ["Templates", "Prices", "Blog", "Jobs"];
+
+const HeaderV2 = (props) => {
+  const { window } = props;
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen((prevState) => !prevState);
+  };
+
+  const drawer = (
+    <Box
+      onClick={handleDrawerToggle}
+      sx={{
+        textAlign: "center",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          my: 2,
         }}
       >
-        <img src={logo} alt="Mind the Graph" />
-      </div>
-      <nav className="w-10/12 mr-8 mt-8">
-        <ul className="flex flex-row justify-end text-white antialiased menu-items">
-          <li className="py-2 px-5 pt-2.5 hover:scale-125 transition-all duration-300 ease-in-out">
-            <a href="#">Templates</a>
-          </li>
-          <li className="py-2 px-5 pt-2.5 hover:scale-125 transition-all duration-300 ease-in-out">
-            <a href="#">Prices</a>
-          </li>
-          <li className="py-2 px-5 pt-2.5 hover:scale-125 transition-all duration-300 ease-in-out">
-            <a href="#">Blog</a>
-          </li>
-          <li className="py-2 px-5 pr-8 pt-2.5 hover:scale-125 transition-all duration-300 ease-in-out">
-            <a href="#">Jobs</a>
-          </li>
-          <li
-            className="mr-4 py-2 px-8 border-2 border-white rounded-full cursor-pointer hover:bg-white hover:text-blackish hover:scale-110 transition-all duration-300 ease-in-out"
-            onClick={() => {
-              window.location.href = "#";
+        <img
+          src={logo}
+          alt="Mind the Graph"
+          onClick={() => {
+            window.location.href = "https://mindthegraph.com";
+          }}
+          style={{
+            cursor: "pointer",
+            filter:
+              "brightness(0) saturate(100%) invert(20%) sepia(53%) saturate(5563%) hue-rotate(325deg) brightness(88%) contrast(96%)",
+          }}
+        />
+      </Box>
+
+      <List>
+        {navItems.map((item) => (
+          <ListItem key={item} disablePadding>
+            <ListItemButton
+              sx={{
+                textAlign: "center",
+                "&:hover": {
+                  backgroundColor: "#EEEEEE",
+                },
+                "&:active": {
+                  backgroundColor: "#EEEEEE",
+                },
+                transition: "all 0.3s ease-in-out",
+              }}
+            >
+              <ListItemText primary={item} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            mt: 5,
+          }}
+        >
+          <ListItem disablePadding>
+            <ListItemButton
+              sx={{
+                textAlign: "center",
+                borderRadius: "50px",
+                mx: 6,
+                py: 0,
+                border: "1px solid #212121",
+                "&:hover": {
+                  backgroundColor: "#212121",
+                  color: "#fff",
+                },
+                "&:active": {
+                  backgroundColor: "#212121",
+                  color: "#fff",
+                },
+                transition: "all 0.3s ease-in-out",
+              }}
+            >
+              <ListItemText primary="Login" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton
+              sx={{
+                textAlign: "center",
+                borderRadius: "50px",
+                mx: 3,
+                my: 1.5,
+                py: 0.4,
+                px: 2,
+                backgroundColor: "#5F29CC",
+                color: "#fff",
+                border: "1px solid #5F29CC",
+                "&:hover": {
+                  backgroundColor: "#fff",
+                  color: "#5F29CC",
+                },
+                "&:active": {
+                  backgroundColor: "#fff",
+                  color: "#5F29CC",
+                },
+                transition: "all 0.3s ease-in-out",
+              }}
+            >
+              <ListItemText primary="Sign up free" />
+            </ListItemButton>
+          </ListItem>
+        </Box>
+      </List>
+    </Box>
+  );
+
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
+
+  return (
+    <Box sx={{ display: "flex" }}>
+      <AppBar
+        component="nav"
+        elevation={0}
+        sx={{
+          backgroundColor: "transparent",
+          "& .MuiButton-root": {
+            textTransform: "none",
+            minWidth: "auto",
+            "&:hover": {
+              transform: "scale(1.1)",
+            },
+            transition: "all 0.3s ease-in-out",
+            fontSize: {
+              xs: "0.8rem",
+              md: "0.9rem",
+              xl: "1rem",
+            },
+          },
+        }}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: "none" } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { sm: "block", xs: "flex" },
+              ...(mobileOpen && { display: "none" }),
+              justifyContent: { xs: "flex-end" },
+              mt: 2,
             }}
           >
-            <a href="#">Login</a>
-          </li>
-          <li
-            className="py-2 px-8 pt-2.5 bg-purplish rounded-full cursor-pointer hover:bg-white hover:text-purplish hover:scale-110 transition-all duration-300 ease-in-out"
-            onClick={() => {
-              window.location.href = "#";
-            }}
+            <img
+              src={logo}
+              alt="Mind the Graph"
+              onClick={() => {
+                window.location.href = "https://mindthegraph.com";
+              }}
+              style={{ cursor: "pointer" }}
+            />
+          </Box>
+          <Box
+            sx={{ display: { xs: "none", sm: "block" }, pt: { sm: 1, md: 2 } }}
           >
-            <a href="#">Sign up free</a>
-          </li>
-        </ul>
+            {navItems.map((item) => (
+              <Button key={item} sx={{ color: "#fff", p: 0, px: 0.9 }}>
+                {item}
+              </Button>
+            ))}
+            <Button
+              sx={{
+                p: 0,
+                color: "#fff",
+                border: "1px solid #fff",
+                borderRadius: "50px",
+                px: 2,
+                py: 0.3,
+                ml: 1,
+                "&:hover": {
+                  backgroundColor: "#fff",
+                  color: "#212121",
+                },
+              }}
+            >
+              Login
+            </Button>
+            <Button
+              sx={{
+                p: 0,
+                color: "#fff",
+                backgroundColor: "#7833FF",
+                borderRadius: "50px",
+                px: 2,
+                py: 0.3,
+                ml: { sm: 1, md: 2 },
+                border: "1px solid #7833FF",
+                "&:hover": {
+                  backgroundColor: "#FFF",
+                  color: "#7833FF",
+                  border: "1px solid #FFF",
+                },
+              }}
+            >
+              Sign up free
+            </Button>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <nav>
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
       </nav>
-    </header>
+    </Box>
   );
 };
 
-export default Header;
+export default HeaderV2;
