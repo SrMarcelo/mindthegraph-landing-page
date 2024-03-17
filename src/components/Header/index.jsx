@@ -16,7 +16,7 @@ import { useState } from "react";
 const drawerWidth = 240;
 const navItems = ["Templates", "Prices", "Blog", "Jobs"];
 
-const HeaderV2 = (props) => {
+const Header = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -256,4 +256,4 @@ const HeaderV2 = (props) => {
   );
 };
 
-export default HeaderV2;
+export default Header;
