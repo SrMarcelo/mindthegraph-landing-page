@@ -10,7 +10,7 @@ const InfoCard = ({ title, image, description, button, onClick }) => {
   return (
     <Card
       sx={{
-        backgroundColor: "#EEEEEE",
+        backgroundColor: "transparent",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -61,7 +61,6 @@ const InfoCard = ({ title, image, description, button, onClick }) => {
       <CardActions
         sx={{
           "& .MuiButton-root": {
-            textTransform: "none",
             minWidth: "auto",
             "&:hover": {
               transform: "scale(1.1)",
