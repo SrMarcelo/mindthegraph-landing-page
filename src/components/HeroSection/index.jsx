@@ -16,10 +16,9 @@ const HeroSection = () => {
     >
       <Grid
         item
-        sm={12}
+        xs={12}
         md={4}
         display="flex"
-        alignItems="flex-start"
         direction="column"
         sx={{
           p: 2,
@@ -36,6 +35,14 @@ const HeroSection = () => {
               md: "0.9rem",
               xl: "1rem",
             },
+          },
+          alignItems: {
+            xs: "center",
+            md: "flex-start",
+          },
+          textAlign: {
+            xs: "center",
+            md: "left",
           },
         }}
       >
@@ -76,8 +83,9 @@ const HeroSection = () => {
       {/* TODO: Make the img element overflow */}
       <Grid
         item
-        sm={12}
-        md={5}
+        xs={10}
+        sm={10}
+        md={6}
         sx={{
           padding: 0,
           paddingTop: 0,
