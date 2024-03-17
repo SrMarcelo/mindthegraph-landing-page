@@ -3,6 +3,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Header from "../../components/Header";
 import HeroSection from "../../components/HeroSection";
 import InfoCardsGroup from "../../components/InfoCardsGroup";
+import FeaturesBox from "../../components/FeaturesBox";
 
 const MainPage = () => {
   return (
@@ -14,6 +15,7 @@ const MainPage = () => {
       </Box>
       <Box className="bg-gray">
         <InfoCardsGroup />
+        <FeaturesBox />
       </Box>
     </>
   );
